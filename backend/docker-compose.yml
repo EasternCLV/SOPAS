@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+   db:
+    image: postgres:16.4
+    container_name: clv_postgres
+    environment:
+      #Khi dựng trên Dbeaver chỉ phụ thuộc username và pass
+      POSTGRES_USER: root #Đặt root để ko bị báo lỗi từ docker
+      POSTGRES_PASSWORD: 130600 
+      POSTGRES_DB: root #Đặt root để ko bị báo lỗi từ docker
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgreSql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 1s # Khoảng tg của các lần kiểm tra 
+      timeout: 5s # tg tối đa mà lệnh kiểm tra có thể chạy trc khi bị đánh dấu là không thành công
+      retries: 10
+
+volumes:
+  pgdata:
