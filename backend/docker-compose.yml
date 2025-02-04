@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-   db:
+  db:
     image: postgres:16.4
     container_name: clv_postgres
     environment:
@@ -19,5 +19,38 @@ services:
       timeout: 5s # tg tối đa mà lệnh kiểm tra có thể chạy trc khi bị đánh dấu là không thành công
       retries: 10
 
+  auth:
+    build:
+      context: .
+      dockerfile: apps/authentication/Dockerfile # Dockerfile cho ứng dụng auth
+    ports:
+      - "3001:3001"  # Mở cổng 3001 từ container auth ra ngoài
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile # Dockerfile cho ứng dụng notification
+    ports:
+      - "3002:3002"  # Mở cổng 3002 từ container notification ra ngoài
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./nginx/nginx.config:/etc/nginx/nginx.config  # Mount file nginx.conf vào container Nginx
+    ports:
+      - "3000:3000"  # Nginx sẽ lắng nghe trên cổng 3000
+    depends_on:
+      - auth
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
 volumes:
   pgdata:

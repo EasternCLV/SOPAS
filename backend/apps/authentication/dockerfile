@@ -1,0 +1,24 @@
+# Sử dụng image Node.js chính thức làm base image
+FROM node:18-alpine
+
+# Thiết lập thư mục làm việc trong container
+WORKDIR /app
+
+# Sao chép package.json và package-lock.json vào container
+COPY package*.json ./
+
+# Cài đặt các dependencies của dự án, bao gồm cả Nx CLI
+RUN npm install -g nx
+RUN npm install
+
+# Sao chép toàn bộ mã nguồn vào container
+COPY . .
+
+# Build ứng dụng auth
+RUN nx build authentication
+
+# Expose cổng 3001 cho ứng dụng auth
+EXPOSE 3000
+
+# Chạy ứng dụng auth trên cổng 3001
+CMD ["npm", "run", "start:auth"]

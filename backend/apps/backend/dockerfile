@@ -1,0 +1,22 @@
+# Sử dụng image Node.js chính thức làm base image
+FROM node:18-alpine
+
+# Thiết lập thư mục làm việc trong container
+WORKDIR /app
+
+# Sao chép package.json và package-lock.json vào container
+COPY package*.json ./
+
+# Cài đặt các dependencies của dự án, bao gồm cả Nx CLI
+RUN npm install -g nx
+RUN npm install
+
+# Sao chép toàn bộ mã nguồn vào container
+COPY . .
+
+RUN nx build backend
+
+# Expose cổng 3002 cho ứng dụng notification
+EXPOSE 3001
+
+CMD ["npm", "run", "start:backend"]

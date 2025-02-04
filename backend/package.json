@@ -2,7 +2,10 @@
   "name": "@backend/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start:auth": "nx serve authentication --port 3001",
+    "start:backend": "nx serve backend --port 3002"
+  },
   "private": true,
   "dependencies": {
     "@nestjs/common": "^10.0.2",
