@@ -17,6 +17,6 @@ COPY . .
 RUN nx build backend
 
 # Expose cổng 3002 cho ứng dụng notification
-EXPOSE 3001
+# EXPOSE 30030
 
 CMD ["npm", "run", "start:backend"]

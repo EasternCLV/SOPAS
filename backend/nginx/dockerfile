@@ -1,0 +1,9 @@
+# Sử dụng Nginx image chính thức từ Docker Hub
+FROM nginx:alpine
+
+# Sao chép cấu hình Nginx tùy chỉnh vào container
+# Thay thế /etc/nginx/nginx.conf bằng cấu hình của bạn (đảm bảo cấu hình bạn cung cấp là đúng)
+COPY nginx/nginx.config /etc/nginx/nginx.config
+
+# Khởi động Nginx khi container chạy
+CMD ["nginx", "-g", "daemon off;"]

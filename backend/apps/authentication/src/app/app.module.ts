@@ -16,8 +16,8 @@ import { ConfigService } from '@nestjs/config';
     UsersModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5433,
+      host: 'db',
+      port: 5432, //5433 port local, 5432 port serve(docker)
       username: 'root',
       password: '130600',
       database: 'postgres', // coi theo db trên dbeaver

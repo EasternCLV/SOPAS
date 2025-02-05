@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start:auth": "nx serve authentication --port 3001",
-    "start:backend": "nx serve backend --port 3002"
+    "start:backend": "nx serve backend --port 3003"
   },
   "private": true,
   "dependencies": {
