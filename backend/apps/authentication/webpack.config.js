@@ -17,4 +17,9 @@ module.exports = {
       generatePackageJson: true,
     }),
   ],
+  resolve: {
+    fallback: {
+      crypto: require.resolve('crypto-browserify'),
+    },
+  },
 };

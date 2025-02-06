@@ -5,7 +5,7 @@ import { PassportModule } from '@nestjs/passport';
 import { UsersModule } from '../users/users.module';
 import { JwtStrategy } from './jwt/jwt.strategy';
 
-console.log ("Secret Key: ", process.env.SECRET_KEY);
+// console.log ("Secret Key: ", process.env.SECRET_KEY);
 @Module({
   imports: [
     UsersModule,
