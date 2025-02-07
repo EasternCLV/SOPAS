@@ -28,7 +28,6 @@ cache:
   only:
     - merge_requests
     - main
-    - CICD
     - featues/*
   script:
     - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t $NX_TASK
