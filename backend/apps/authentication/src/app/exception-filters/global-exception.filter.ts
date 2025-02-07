@@ -1,13 +1,13 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import {Response} from "express"
+import { Response } from "express"
 @Catch()
-export class GlobalExceptionFilter implements ExceptionFilter{
-    constructor(private readonly config_service: ConfigService){
+export class GlobalExceptionFilter implements ExceptionFilter {
+	constructor(private readonly config_service: ConfigService) {
 
-    }
-    catch(exception: any, host: ArgumentsHost) {
-        const ctx = host.switchToHttp();
+	}
+	catch(exception: any, host: ArgumentsHost) {
+		const ctx = host.switchToHttp();
 		const response = ctx.getResponse<Response>();
 
 		const status =
@@ -23,10 +23,10 @@ export class GlobalExceptionFilter implements ExceptionFilter{
 			error:
 				this.config_service.get('NODE_ENV') !== 'production'
 					? {
-							response: exception.response,
-							stack: exception.stack,
-					  }
+						response: exception.response,
+						stack: exception.stack,
+					}
 					: null,
 		});
-    }
+	}
 }

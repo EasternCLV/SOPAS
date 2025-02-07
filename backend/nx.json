@@ -15,7 +15,7 @@
     ],
     "sharedGlobals": ["{workspaceRoot}/.gitlab-ci.yml"]
   },
-  "nxCloudId": "67a09d360608fc5277887681",
+  "nxCloudId": "677617a1c60c400ee027569e",
   "plugins": [
     {
       "plugin": "@nx/webpack/plugin",

@@ -5,18 +5,17 @@ services:
     image: postgres:16.4
     container_name: clv_postgres
     environment:
-      #Khi dựng trên Dbeaver chỉ phụ thuộc username và pass
-      POSTGRES_USER: root #Đặt root để ko bị báo lỗi từ docker
-      POSTGRES_PASSWORD: 130600 
-      POSTGRES_DB: root #Đặt root để ko bị báo lỗi từ docker
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "5433:5432"
+      - '${POSTGRES_PORT}:5432'
     volumes:
-      - pgdata:/var/lib/postgreSql/data
+      - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
-      interval: 1s # Khoảng tg của các lần kiểm tra 
-      timeout: 5s # tg tối đa mà lệnh kiểm tra có thể chạy trc khi bị đánh dấu là không thành công
+      test: ['CMD-SHELL', 'pg_isready']
+      interval: 1s
+      timeout: 5s
       retries: 10
     networks:
       - app-network
@@ -28,7 +27,7 @@ services:
     depends_on:
       - db
     ports:
-      - "3001:13001"  # Mở cổng 3001 từ container auth ra ngoài
+      - '3001:3001' # Mở cổng 3001 từ container auth ra ngoài
     networks:
       - app-network
 
@@ -37,7 +36,7 @@ services:
       context: .
       dockerfile: apps/backend/Dockerfile # Dockerfile cho ứng dụng notification
     ports:
-      - "3002:13000"  # Mở cổng 3002 từ container notification ra ngoài
+      - '3002:3002' # Mở cổng 3002 từ container notification ra ngoài
     networks:
       - app-network
 
@@ -47,9 +46,9 @@ services:
       context: .
       dockerfile: nginx/Dockerfile # Dockerfile cho ứng dụng notification
     volumes:
-      - ./nginx/nginx.config:/etc/nginx/nginx.config  # Mount file nginx.conf vào container Nginx
+      - ./nginx/nginx.config:/etc/nginx/nginx.config # Mount file nginx.conf vào container Nginx
     ports:
-      - "3000:3000"  # Nginx sẽ lắng nghe trên cổng 3000
+      - '3000:3000' # Nginx sẽ lắng nghe trên cổng 3000
     depends_on:
       - auth
       - backend
