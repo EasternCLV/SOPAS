@@ -1,17 +1,15 @@
-import { registerAs } from "@nestjs/config";
-export default registerAs('typeorm', () => ({
-    type: 'postgres',
-    host: process.env["DATABASE_HOST"],
-    port: process.env["DATABASE_PORT"],
-    username: process.env["DATABASE_USERNAME"],
-    password: process.env["DATABASE_PASSWORD"],
-    database: process.env["DATABASE_NAME"],
-    entities: [__dirname + '.../../../../apps/authentication/src/app/entities/*.entity{.ts,.js}'],
-    // entities: [User],
-    migrations: [__dirname + '/migrations/*{.ts,.js}'],
-    cli: {
-        migrationsDir: 'src/migrations',
-    },
-    autoLoadEntities: true,
-    synchronize: false,
-  }));
+import { DataSource } from "typeorm"
+import {User} from "../../../../apps/entities/user.entity"
+export const AppDataSource = () => {
+    return new DataSource({
+        type: 'postgres',
+        host: 'localhost',
+        port: 5433,
+        username: process.env["POSTGRES_USERNAME"],
+        password: process.env["POSTGRES_PASSWORD"],
+        database: process.env["POSTGRES_DB"],
+        entities: [User],
+        // migrations: [`${__dirname}/../../../apps/migrations/*{.ts,.js}`],
+        synchronize: true,
+    })
+}

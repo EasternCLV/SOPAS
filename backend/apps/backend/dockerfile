@@ -9,7 +9,7 @@ COPY package*.json ./
 
 # Cài đặt các dependencies của dự án, bao gồm cả Nx CLI
 RUN npm install -g nx
-RUN npm install
+RUN npm install 
 
 # Sao chép toàn bộ mã nguồn vào container
 COPY . .
