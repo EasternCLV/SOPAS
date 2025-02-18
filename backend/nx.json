@@ -45,5 +45,12 @@
         "apps/authentication-e2e/**/*"
       ]
     }
-  ]
+  ],
+  "targetDefaults": {
+    "@nx/esbuild:esbuild": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    }
+  }
 }

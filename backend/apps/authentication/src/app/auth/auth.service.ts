@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from "bcryptjs"
-import { ERRORS_DICTIONARY } from '../../constraints/error-dictionary.constraint';
+import { ERRORS_DICTIONARY } from '@backend/shared';
 
 @Injectable()
 export class AuthService {

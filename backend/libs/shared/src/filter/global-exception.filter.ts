@@ -1,9 +1,9 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { Response } from "express"
+import { Response } from 'express';
+import {ConfigService} from '@nestjs/config'
 @Catch()
-export class GlobalExceptionFilter implements ExceptionFilter {
-	constructor(private readonly config_service: ConfigService) {
+export class GlobalExceptionFilter<T> implements ExceptionFilter {
+  constructor(private readonly config_service: ConfigService) {
 
 	}
 	catch(exception: any, host: ArgumentsHost) {
